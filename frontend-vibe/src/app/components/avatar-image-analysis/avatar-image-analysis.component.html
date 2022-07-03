@@ -1,0 +1,18 @@
+<div *ngIf="results?.length > 0" class="container">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Error Type</th>
+      <th scope="col">In %</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let result of results; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{result.valueName}}</td>
+      <td>{{result.content}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

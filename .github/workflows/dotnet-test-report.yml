@@ -1,0 +1,37 @@
+name: .NET Report Service Test
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - "VIBEBackend/ReportService/**"
+      - "VIBEBackend/ReportTests/**"
+      - ".github/workflows/dotnet-test-report.yml"
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - "VIBEBackend/ReportService/**"
+      - "VIBEBackend/ReportTests/**"
+      - ".github/workflows/dotnet-test-report.yml"
+
+env:
+  PROJECT_PATH: 'VIBEBackend/ReportService/ReportService.csproj'
+  TEST_PATH: 'VIBEBackend/ReportTests/ReportTests.csproj'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - name: 'Restore packages'
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+      - name: 'Build project'
+        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+      - name: Run tests
+        run: dotnet test ${{ env.TEST_PATH }}

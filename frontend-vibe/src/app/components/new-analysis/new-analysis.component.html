@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="input-group mb-3">
+    <span class="input-group-text">Choose Avatar</span>
+    <select [(ngModel)]="selected" class="form-select" aria-label="Default select example"
+            (change)="onSelectedChange()">
+      <option *ngFor="let avatar of avatars" [value]="avatar.name">{{avatar.name}}</option>
+    </select>
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Choose Scenario</span>
+    <select [(ngModel)]="selectedScenario" class="form-select" aria-label="Default select example"
+            (change)="onSelectedScenarioChange()">
+      <option *ngFor="let scenario of scenarios" [value]="scenario">{{scenario}}</option>
+    </select>
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Analysis Algorithm</span>
+    <select [(ngModel)]="selectedAlgorithm" class="form-select" aria-label="Default select example"
+            (change)="onSelectedAnalysisChange()">
+      <option *ngFor="let algorithm of algorithms" [value]="algorithm">{{algorithm}}</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <input class="form-control" type="file" multiple
+           (change)="onChange($event)">
+  </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Description</span>
+    <input class="form-control" [(ngModel)]="description" id="description" placeholder="Description:">
+  </div>
+  <div class="mb-3">
+    <button (click)="startAnalysis()"
+            class="btn btn-success">
+      Start Analysis
+    </button>
+    <button (click)="onUpload()"
+            class="btn btn-success">
+      Upload
+    </button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="container text-center jumbotron"
+       *ngIf="uploadResponse">
+    <p>{{uploadResponse.message}}</p>
+    <ul class="list-group" *ngFor="let fileDescription of uploadResponse.result">
+      <li class="list-group-item">{{fileDescription.avatarName}} - {{fileDescription.fileName}} - <a
+        href="{{fileDescription.fileUri}}">{{fileDescription.fileUri}}</a></li>
+    </ul>
+  </div>
+  <div class="container" *ngIf="loading">
+    <h3>Loading ...</h3>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+version: '3.4'
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-management
+
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
+  maildev:
+    image: maildev/maildev
+
+  azure-blob-storage:
+    container_name: azurite
+    image: mcr.microsoft.com/azure-storage/azurite
+
+  openface-api:
+    image: nickthijssen/vibe-openface-api:latest
+    build:
+      context: VIBEBackend
+      dockerfile: OpenFaceService/Dockerfile
+    depends_on:
+      - rabbitmq
+      - azure-blob-storage
+
+  api-gateway:
+    image: nickthijssen/vibe-api-gateway:latest
+    build:
+      context: VIBEBackend
+      dockerfile: APIGateway/Dockerfile
+    depends_on:
+      - rabbitmq
+      - analysis-api
+      - avatar-api
+      - file-storage-api
+      - notification-api
+      - parameter-preset-api
+      - report-api
+
+  analysis-api:
+    image: nickthijssen/vibe-analysis-api:latest
+    build:
+      context: VIBEBackend
+      dockerfile: AnalysisService/Dockerfile
+    depends_on:
+      - sqldata
+      - rabbitmq
+
+  avatar-api:
+    image: nickthijssen/vibe-avatar-api:latest
+    build:
+      context: VIBEBackend
+      dockerfile: AvatarService/Dockerfile
+    depends_on:
+      - sqldata
+      - rabbitmq
+
+  file-storage-api:
+    image: nickthijssen/vibe-file-storage-api:latest
+    build:
+      context: VIBEBackend
+      dockerfile: FileStorageService/Dockerfile
+    depends_on:
+      - sqldata
+      - rabbitmq
+      - azure-blob-storage
+
+  notification-api:
+    image: nickthijssen/vibe-notification-api:latest
+    build:
+      context: VIBEBackend
+      dockerfile: NotificationService/Dockerfile
+    depends_on:
+      - sqldata
+      - rabbitmq
+      - maildev
+
+  report-api:
+    image: nickthijssen/vibe-report-api:latest
+    build:
+      context: VIBEBackend
+      dockerfile: ReportService/Dockerfile
+    depends_on:
+      - sqldata
+      - rabbitmq
+
+  angular-frontend:
+    image: nickthijssen/vibe-angular-frontend:latest
+    build:
+      context: frontend-vibe
+      dockerfile: Dockerfile
+    depends_on:
+      - api-gateway

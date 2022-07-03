@@ -1,0 +1,32 @@
+name: .NET Avatar Service Test
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - "VIBEBackend/AvatarService/**"
+      - ".github/workflows/dotnet-test-avatar.yml"
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - "VIBEBackend/AvatarService/**"
+      - ".github/workflows/dotnet-test-avatar.yml"
+
+env:
+  PROJECT_PATH: 'VIBEBackend/AvatarService/AvatarService.csproj'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - name: 'Restore packages'
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+      - name: 'Build project'
+        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release

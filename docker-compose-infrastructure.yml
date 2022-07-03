@@ -1,0 +1,65 @@
+version: '3.4'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "17672:15672"
+      - "7672:5672"
+  
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "7433:1433"
+    volumes:
+      - vibe-mssql:/var/opt/mssql
+  
+  maildev:
+    image: maildev/maildev
+    ports:
+      - "1025:1025"
+      - "1080:1080"
+  
+  azure-blob-storage:
+    container_name: azurite
+    image: mcr.microsoft.com/azure-storage/azurite
+    command: "azurite --loose --blobHost 0.0.0.0 --blobPort 10000 --queueHost 0.0.0.0 --queuePort 10001 --tableHost 0.0.0.0 --tablePort 10002"
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    volumes:
+      - vibe-blob-storage:/data
+  
+  openface-api:
+    image: nickthijssen/vibe-openface-api:latest
+    build:
+      context: VIBEBackend
+      dockerfile: OpenFaceService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AzureStorageConnectionString=${VIBE_AZURE_BLOB_STORAGE_CONNECTION_STRING:-azure-blob-storage}
+      - EventBusConnection=${VIBE_SERVICE_BUS_CONNECTION_STRING:-rabbitmq}
+      - EventBusPort=${VIBE_SERVICE_BUS_CONNECTION_PORT}
+      - EventBusVirtualHost=${VIBE_SERVICE_BUS_VIRTUAL_HOST}
+      - EventBusUserName=${VIBE_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${VIBE_SERVICE_BUS_PASSWORD}
+      - PATH_BASE=/openface-api
+      - PORT=80
+    expose:
+      - "80"
+    ports:
+      - "7030:80"
+    depends_on:
+      - rabbitmq
+      - azure-blob-storage
+
+volumes:
+  vibe-mssql:
+    external: false
+  vibe-blob-storage:
+    external: false

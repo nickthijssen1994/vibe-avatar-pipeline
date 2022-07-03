@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<UserSecretsId>3ab0cb4f-dc2c-4501-9579-5852a6877a50</UserSecretsId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.11.0"/>
+		<PackageReference Include="Azure.Storage.Files.Shares" Version="12.1.0"/>
+		<PackageReference Include="Azure.Storage.Queues" Version="12.2.0"/>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.3"/>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3"/>
+		<PackageReference Include="Microsoft.Extensions.Azure" Version="1.0.0"/>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0"/>
+	</ItemGroup>
+
+</Project>

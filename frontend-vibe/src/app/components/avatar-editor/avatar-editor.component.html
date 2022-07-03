@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="input-group mb-3">
+    <span class="input-group-text">Name:</span>
+    <input class="form-control" id="name" placeholder="name"  [(ngModel)]="avatarName">
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Gender</label>
+    <div class="col-sm-10">
+      <div class="input-group mb-3">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+          <label class="form-check-label" for="flexRadioDefault1">
+            Male
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+          <label class="form-check-label" for="flexRadioDefault2">
+            Female
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="thumbnail" class="col-sm-2 col-form-label">Thumbnail</label>
+    <div class="col-sm-10">
+      <input class="form-control" id="thumbnail" type="file"
+             (change)="onChange($event)">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <div class="col-sm-10">
+      <button class="btn btn-success" (click)="onSubmit()">
+        Upload Avatar
+      </button>
+    </div>
+  </div>
+</div>

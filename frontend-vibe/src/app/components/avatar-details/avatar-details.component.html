@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      <h1>{{avatarModel.name}}</h1>
+      <div class="mb-3">
+        <button routerLink="/avatars" class="btn btn-success">Return To Avatars</button>
+      </div>
+      <app-avatar-analysis-list [avatar]="avatarModel"></app-avatar-analysis-list>
+    </div>
+    <div class="col-6">
+      <app-avatar-info [avatar]="avatarModel"></app-avatar-info>
+    </div>
+  </div>
+</div>

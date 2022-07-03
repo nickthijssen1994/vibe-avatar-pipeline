@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3">
+      <h1>{{avatarModel.name}}</h1>
+      <div class="mb-3">
+        <button (click)="goBack()" class="btn btn-success">Return To Analysis</button>
+      </div>
+      <app-file-list (newFileSelectedEvent)="onFileChanged($event)" [avatar]="avatar" [analysis]="analysis"
+        [fileModels]="analysisModel.files"></app-file-list>
+    </div>
+    <div class="col-4">
+      <div *ngIf="imageFileSelected">
+        <img class="img-fluid" src="{{filePath}}" alt="Avatar Image">
+      </div>
+      <div *ngIf="videoFileSelected">
+        <video controls width="600">
+          <source src="{{filePath}}" type="video/mp4">
+          Browser not supported
+        </video>
+      </div>
+    </div>
+    <div class="col-5">
+      <avatar-video-analysis *ngIf="videoFileSelected" [avatar]="avatar" [analysis]="analysis" [filePath]="filePath">
+      </avatar-video-analysis>
+      <avatar-image-analysis *ngIf="imageFileSelected" [avatar]="avatar" [analysis]="analysis" [filePath]="filePath">
+      </avatar-image-analysis>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,165 @@
+version: '3.4'
+
+services:
+  
+  rabbitmq:
+    ports:
+      - "17672:15672"
+      - "7672:5672"
+
+  sqldata:
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "7433:1433"
+    volumes:
+      - vibe-mssql:/var/opt/mssql
+  
+  maildev:
+    ports:
+      - "1025:1025"
+      - "4000:1080"
+  
+  azure-blob-storage:
+    command: "azurite --loose --blobHost 0.0.0.0 --blobPort 10000 --queueHost 0.0.0.0 --queuePort 10001 --tableHost 0.0.0.0 --tablePort 10002"
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    volumes:
+      - vibe-blob-storage:/data
+
+  openface-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AzureStorageConnectionString=${VIBE_AZURE_BLOB_STORAGE_CONNECTION_STRING:-azure-blob-storage}
+      - EventBusConnection=${VIBE_SERVICE_BUS_CONNECTION_STRING:-rabbitmq}
+      - EventBusPort=${VIBE_SERVICE_BUS_CONNECTION_PORT}
+      - EventBusVirtualHost=${VIBE_SERVICE_BUS_VIRTUAL_HOST}
+      - EventBusUserName=${VIBE_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${VIBE_SERVICE_BUS_PASSWORD}
+      - PATH_BASE=/openface-api
+      - PORT=80
+    expose:
+      - "80"
+    ports:
+      - "7030:80"
+
+  api-gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - OcelotDefaultHost=${VIBE_OCELOT_DEFAULT_HOST}
+      - EventBusConnection=${VIBE_SERVICE_BUS_CONNECTION_STRING:-rabbitmq}
+      - EventBusPort=${VIBE_SERVICE_BUS_CONNECTION_PORT}
+      - EventBusVirtualHost=${VIBE_SERVICE_BUS_VIRTUAL_HOST}
+      - EventBusUserName=${VIBE_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${VIBE_SERVICE_BUS_PASSWORD}
+      - PATH_BASE=/api-gateway
+      - PORT=80
+    expose:
+      - "80"
+    ports:
+      - "7002:80"
+  
+  analysis-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ConnectionString=${VIBE_ANALYSIS_CONNECTION_STRING:-Server=sqldata;Database=AnalysisDb;User Id=sa;Password=Pass@word}
+      - EventBusConnection=${VIBE_SERVICE_BUS_CONNECTION_STRING:-rabbitmq}
+      - EventBusPort=${VIBE_SERVICE_BUS_CONNECTION_PORT}
+      - EventBusVirtualHost=${VIBE_SERVICE_BUS_VIRTUAL_HOST}
+      - EventBusUserName=${VIBE_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${VIBE_SERVICE_BUS_PASSWORD}
+      - PATH_BASE=/analysis-api
+      - PORT=80
+    expose:
+      - "80"
+    ports:
+      - "7004:80"
+  
+  avatar-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ConnectionString=${VIBE_AVATAR_CONNECTION_STRING:-Server=sqldata;Database=AvatarDb;User Id=sa;Password=Pass@word}
+      - EventBusConnection=${VIBE_SERVICE_BUS_CONNECTION_STRING:-rabbitmq}
+      - EventBusPort=${VIBE_SERVICE_BUS_CONNECTION_PORT}
+      - EventBusVirtualHost=${VIBE_SERVICE_BUS_VIRTUAL_HOST}
+      - EventBusUserName=${VIBE_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${VIBE_SERVICE_BUS_PASSWORD}
+      - PATH_BASE=/avatar-api
+      - PORT=80
+    expose:
+      - "80"
+    ports:
+      - "7010:80"
+  
+  file-storage-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AzureStorageConnectionString=${VIBE_AZURE_BLOB_STORAGE_CONNECTION_STRING:-azure-blob-storage}
+      - EventBusConnection=${VIBE_SERVICE_BUS_CONNECTION_STRING:-rabbitmq}
+      - EventBusPort=${VIBE_SERVICE_BUS_CONNECTION_PORT}
+      - EventBusVirtualHost=${VIBE_SERVICE_BUS_VIRTUAL_HOST}
+      - EventBusUserName=${VIBE_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${VIBE_SERVICE_BUS_PASSWORD}
+      - PATH_BASE=/file-storage-api
+      - PORT=80
+    expose:
+      - "80"
+    ports:
+      - "7012:80"
+
+  notification-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - VIBE_MAILHOST=${VIBE_MAILHOST:-maildev}
+      - VIBE_MAILPORT=${VIBE_MAILPORT}
+      - ConnectionString=${VIBE_NOTIFICATION_CONNECTION_STRING:-Server=sqldata;Database=NotificationDb;User Id=sa;Password=Pass@word}
+      - EventBusConnection=${VIBE_SERVICE_BUS_CONNECTION_STRING:-rabbitmq}
+      - EventBusPort=${VIBE_SERVICE_BUS_CONNECTION_PORT}
+      - EventBusVirtualHost=${VIBE_SERVICE_BUS_VIRTUAL_HOST}
+      - EventBusUserName=${VIBE_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${VIBE_SERVICE_BUS_PASSWORD}
+      - PATH_BASE=/notification-api
+      - PORT=80
+    expose:
+      - "80"
+    ports:
+      - "7014:80"
+  
+  report-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AzureStorageConnectionString=${VIBE_AZURE_BLOB_STORAGE_CONNECTION_STRING:-azure-blob-storage}
+      - ConnectionString=${VIBE_REPORT_CONNECTION_STRING:-Server=sqldata;Database=ReportDb;User Id=sa;Password=Pass@word}
+      - EventBusConnection=${VIBE_SERVICE_BUS_CONNECTION_STRING:-rabbitmq}
+      - EventBusPort=${VIBE_SERVICE_BUS_CONNECTION_PORT}
+      - EventBusVirtualHost=${VIBE_SERVICE_BUS_VIRTUAL_HOST}
+      - EventBusUserName=${VIBE_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${VIBE_SERVICE_BUS_PASSWORD}
+      - PATH_BASE=/report-api
+      - PORT=80
+    expose:
+      - "80"
+    ports:
+      - "7018:80"
+  
+  angular-frontend:
+    expose:
+      - "80"
+    ports:
+      - "7000:80"
+
+volumes:
+  vibe-mssql:
+    external: false
+  vibe-blob-storage:
+    external: false

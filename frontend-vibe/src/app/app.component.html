@@ -1,0 +1,28 @@
+<div class="main-navbar">
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li ngbNavItem>
+      <a routerLink="" ngbNavLink>VIBE</a>
+      <ng-template ngbNavContent>VIBE</ng-template>
+    </li>
+    <li ngbNavItem>
+      <a routerLink="avatars" ngbNavLink>Avatars</a>
+      <ng-template ngbNavContent>Avatars</ng-template>
+    </li>
+    <li ngbNavItem>
+      <a routerLink="avatar-editor" ngbNavLink>New Avatar</a>
+      <ng-template ngbNavContent>New Avatar</ng-template>
+    </li>
+    <li ngbNavItem>
+      <a routerLink="new-analysis" ngbNavLink>New Analysis</a>
+      <ng-template ngbNavContent>New Analysis</ng-template>
+    </li>
+    <li ngbNavItem>
+      <a routerLink="file-manager" ngbNavLink>Files</a>
+      <ng-template ngbNavContent>Files</ng-template>
+    </li>
+  </ul>
+</div>
+<div class="container-fluid">
+    <router-outlet></router-outlet>
+</div>
+

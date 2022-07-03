@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="FileStorage\**"/>
+		<Compile Remove="Notification\**"/>
+		<Compile Remove="ParameterPreset\**"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Remove="FileStorage\**"/>
+		<EmbeddedResource Remove="Notification\**"/>
+		<EmbeddedResource Remove="ParameterPreset\**"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="FileStorage\**"/>
+		<None Remove="Notification\**"/>
+		<None Remove="ParameterPreset\**"/>
+	</ItemGroup>
+
+</Project>

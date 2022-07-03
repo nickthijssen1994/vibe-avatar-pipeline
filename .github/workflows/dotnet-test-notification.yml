@@ -1,0 +1,39 @@
+name: .NET Notification Service Test
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - "VIBEBackend/NotificationService/**"
+      - "VIBEBackend/NotificationTests/**"
+      - ".github/workflows/dotnet-test-notification.yml"
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - "VIBEBackend/NotificationService/**"
+      - "VIBEBackend/NotificationTests/**"
+      - ".github/workflows/dotnet-test-notification.yml"
+
+env:
+  PROJECT_PATH: 'VIBEBackend/NotificationService/NotificationService.csproj'
+  TEST_PATH: 'VIBEBackend/NotificationTests/NotificationTests.csproj'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - name: 'Restore packages'
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+      - name: 'Restore test packages'
+        run: dotnet restore ${{ env.TEST_PATH }}
+      - name: 'Build project'
+        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+      - name: Run tests
+        run: dotnet test ${{ env.TEST_PATH }}

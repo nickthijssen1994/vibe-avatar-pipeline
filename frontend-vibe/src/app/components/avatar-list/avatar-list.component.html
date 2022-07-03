@@ -1,0 +1,11 @@
+<h1>Avatars</h1>
+<div class="mb-3">
+  <button routerLink="/avatar-editor" class="btn btn-success">
+    Add Avatar
+  </button>
+</div>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+  <div class="col" *ngFor="let avatar of avatars">
+    <app-avatar-info class="card clickable" [avatar]="avatar" routerLink="/avatars/{{avatar.id}}"></app-avatar-info>
+  </div>
+</div>

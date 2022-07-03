@@ -1,0 +1,37 @@
+name: .NET File Storage Service Test
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - "VIBEBackend/FileStorageService/**"
+      - "VIBEBackend/FileStorageTests/**"
+      - ".github/workflows/dotnet-test-filestorageservice.yml"
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - "VIBEBackend/FileStorageService/**"
+      - "VIBEBackend/FileStorageTests/**"
+      - ".github/workflows/dotnet-test-filestorageservice.yml"
+
+env:
+  PROJECT_PATH: 'VIBEBackend/FileStorageService/FileStorageService.csproj'
+  TEST_PATH: 'VIBEBackend/FileStorageTests/FileStorageTests.csproj'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+      - name: 'Restore packages'
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+      - name: 'Build project'
+        run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+      - name: Run tests
+        run: dotnet test ${{ env.TEST_PATH }}

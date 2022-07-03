@@ -1,0 +1,60 @@
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-4">
+        <img class="img-thumbnail ratio-1x1" src="assets/eve.png" alt="Card image cap">
+      </div>
+      <div class="col-md-8">
+        <h3 class="card-title">{{avatar.name}}</h3>
+        <p class="card-text">Rating: {{avatar.id}}</p>
+        <p class="card-text">Number Of Done Analysis: {{avatar.analysis.length}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="card-text">
+        <div class="list-group">
+          <div class="list-group-item" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1">Face</h6>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="list-group-item" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1">Eyes</h6>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
+                   aria-valuemin="0"
+                   aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1">Mouth</h6>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1">Emotions</h6>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <small class="text-muted">Last Updated: {{date | date:'dd MMM yyyy | hh:mm:ss'}}</small>
+  </div>
+</div>

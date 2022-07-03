@@ -1,0 +1,269 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Analysis",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7004
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Analysis",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS"
+      ],
+      "SwaggerKey": "Analysis"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Analysis/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7004
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Analysis/{everything}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS"
+      ],
+      "SwaggerKey": "Analysis"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Avatar",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7010
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Avatar",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS"
+      ],
+      "SwaggerKey": "Avatar"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Avatar/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7010
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Avatar/{everything}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS"
+      ],
+      "SwaggerKey": "Avatar"
+    },
+    {
+      "DownstreamPathTemplate": "/devstoreaccount1/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 10000
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Storage/{everything}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/File",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7012
+        }
+      ],
+      "UpstreamPathTemplate": "/api/File",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS"
+      ],
+      "SwaggerKey": "File"
+    },
+    {
+      "DownstreamPathTemplate": "/api/File/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7012
+        }
+      ],
+      "UpstreamPathTemplate": "/api/File/{everything}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS"
+      ],
+      "SwaggerKey": "File"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Notification",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7014
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Notification",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS"
+      ],
+      "SwaggerKey": "Notification"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Notification/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7014
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Notification/{everything}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS"
+      ],
+      "SwaggerKey": "Notification"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Report",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7018
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Report",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS"
+      ],
+      "SwaggerKey": "Report"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Report/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7018
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Report/{everything}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS"
+      ],
+      "SwaggerKey": "Report"
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "Analysis",
+      "Config": [
+        {
+          "Name": "AnalysisService",
+          "Version": "v1",
+          "Url": "http://localhost:7004/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Avatar",
+      "Config": [
+        {
+          "Name": "AvatarService",
+          "Version": "v1",
+          "Url": "http://localhost:7010/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "File",
+      "Config": [
+        {
+          "Name": "FileStorageService",
+          "Version": "v1",
+          "Url": "http://localhost:7012/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Notification",
+      "Config": [
+        {
+          "Name": "NotificationService",
+          "Version": "v1",
+          "Url": "http://localhost:7014/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Report",
+      "Config": [
+        {
+          "Name": "ReportService",
+          "Version": "v1",
+          "Url": "http://localhost:7018/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "OcRequestId",
+    "AdministrationPath": "/administration",
+    "BaseUrl": "http://localhost:7002"
+  }
+}

@@ -1,0 +1,49 @@
+<h3>Analysis</h3>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Avatar Version</th>
+    <th scope="col">Scenario</th>
+    <th scope="col">Algorithm</th>
+    <th scope="col">Rating</th>
+    <th scope="col">Description</th>
+    <th scope="col">Last Updated</th>
+    <th scope="col">Number Of Files</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let analysis of avatar.analysis; index as i" routerLink="/avatars/{{avatar.id}}/analysis/{{analysis.id}}" class="clickable">
+    <th scope="row">{{analysis.id}}</th>
+    <td>{{analysis.scenario}}</td>
+    <td>{{analysis.algorithm}}</td>
+    <td>{{analysis.files.length}}</td>
+    <td>{{analysis.description}}</td>
+    <td>{{date | date:'dd MMM yyyy | hh:mm:ss'}}</td>
+    <td>{{analysis.files.length}}</td>
+  </tr>
+
+  </tbody>
+</table>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Avatar Version</th>
+    <th scope="col">Scenario</th>
+    <th scope="col">Rating</th>
+    <th scope="col">Last Updated</th>
+    <th scope="col">Number Of Files</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let analysis of avatar.analysis; index as i"
+      routerLink="/avatars/{{avatar.id}}/image-analysis-result/{{analysis.id}}" class="clickable">
+    <th scope="row">{{analysis.id}}</th>
+    <td>{{analysis.scenario}}</td>
+    <td>{{analysis.files.length}}</td>
+    <td>{{date | date:'dd MMM yyyy | hh:mm:ss'}}</td>
+    <td>{{analysis.files.length}}</td>
+  </tr>
+
+  </tbody>
+</table>

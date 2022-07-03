@@ -1,0 +1,19 @@
+<h1 class="list-header">Files</h1>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Name</th>
+    <th scope="col">Date uploaded</th>
+    <th scope="col">Filetype</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let file of fileModels; index as i" class="clickable" (click)="onFileSelectedChange(file.downloadLink)">
+    <th scope="row">{{file.id}}</th>
+    <td><a href="{{file.downloadLink}}">{{file.name}}</a></td>
+    <td>{{date | date:'dd MMM yyyy | hh:mm:ss'}}</td>
+    <td>{{file.fileType}}</td>
+  </tr>
+  </tbody>
+</table>
